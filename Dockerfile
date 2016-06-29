@@ -15,5 +15,5 @@ RUN apk --no-cache add \
     python \
     py-pip && \
     pip install awscli &&\
-    curl https://sdk.cloud.google.com | bash /
+    curl https://sdk.cloud.google.com | bash &&\
     /root/google-cloud-sdk/bin/gcloud components install beta
