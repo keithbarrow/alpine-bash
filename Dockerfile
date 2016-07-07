@@ -1,5 +1,5 @@
 FROM alpine:latest
-MAINTAINER daniel@ngineered.co.uk
+MAINTAINER support@ngineered.co.uk
 
 RUN apk --no-cache add \
     openssl \
