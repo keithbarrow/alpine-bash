@@ -1,7 +1,15 @@
 FROM alpine:latest
 MAINTAINER support@ngineered.co.uk
 
-RUN apk --no-cache add \
+ADD settings/bashrc /etc/bash.bashrc
+ADD settings/bashrc /etc/skel/.bashrc
+ADD settings/vimrc /etc/vim/vimrc
+ADD settings/profile /etc/profile
+
+RUN echo http://nl.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories && \
+    echo http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories && \
+    apk --no-cache add \
+    git \
     openssl \
     ca-certificates \
     bash \
@@ -12,8 +20,32 @@ RUN apk --no-cache add \
     grep \
     openssh-client \
     nmap \
+    drill \
     python \
-    py-pip && \
+    py-pip \
+    openvpn \
+    sudo && \
     pip install awscli &&\
-    curl https://sdk.cloud.google.com | bash &&\
-    /root/google-cloud-sdk/bin/gcloud components install beta
+    ln -s /usr/bin/drill /usr/bin/dig && \
+    curl https://sdk.cloud.google.com | bash && \
+    mv /root/google-cloud-sdk / && \
+    /google-cloud-sdk/bin/gcloud components install beta && \
+    /google-cloud-sdk/bin/gcloud components install kubectl
+
+ADD settings/motd /etc/motd
+# Set Root to bash not ash and overwrite .bashrc
+RUN sed -i 's/root:\/bin\/ash/root:\/bin\/bash/' /etc/passwd && \
+    cp /etc/skel/.bashrc /root/.bashrc
+
+# Link vi to vim (otherwise ric no happy)
+RUN ln -sf vim /usr/bin/vi
+
+# Setup user
+
+RUN /usr/sbin/adduser -D -G wheel -k /etc/skel -s /bin/bash user && \
+    echo '%wheel ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
+
+USER user
+WORKDIR /home/user
+
+CMD ["/bin/bash"]
