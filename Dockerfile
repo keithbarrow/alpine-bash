@@ -7,7 +7,9 @@ ADD settings/vimrc /etc/vim/vimrc
 ADD settings/profile /etc/profile
 
 RUN echo http://nl.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories && \
+    echo http://nl.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories && \
     echo http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories && \
+    apk update && \
     apk --no-cache add \
     git \
     openssl \
