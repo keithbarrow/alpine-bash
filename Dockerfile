@@ -27,6 +27,7 @@ RUN echo http://nl.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories && 
     openvpn \
     sudo && \
     pip3 install awscli &&\
+    pip3 install boto3 &&\
     ln -s /usr/bin/drill /usr/bin/dig && \
     curl https://sdk.cloud.google.com | bash && \
     mv /root/google-cloud-sdk / && \
