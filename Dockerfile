@@ -23,11 +23,10 @@ RUN echo http://nl.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories && 
     openssh-client \
     nmap \
     drill \
-    python \
-    py-pip \
+    python3 \
     openvpn \
     sudo && \
-    pip install awscli &&\
+    pip3 install awscli &&\
     ln -s /usr/bin/drill /usr/bin/dig && \
     curl https://sdk.cloud.google.com | bash && \
     mv /root/google-cloud-sdk / && \
