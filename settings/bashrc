@@ -1,6 +1,3 @@
-# print motd
-cat /etc/motd
-
 # append to the history file, don't overwrite it
 shopt -s histappend
 
@@ -11,10 +8,6 @@ HISTFILESIZE=2000
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
-
-parse_git_branch() {
-     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
-}
 
 # colour Definitions for .bashrc
 COL_YEL="\[\e[1;33m\]"
@@ -52,10 +45,3 @@ case $TERM in
 	* )
 		PS1="\u@\h:\w${_p} " ;;
 esac
-
-# The next line updates PATH for the Google Cloud SDK.
-source '/google-cloud-sdk/path.bash.inc'
-
-# The next line enables shell command completion for gcloud.
-source '/google-cloud-sdk/completion.bash.inc'
-
